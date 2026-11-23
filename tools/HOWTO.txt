@@ -1,0 +1,15 @@
+TINY88 build tools (run on a Linux PC; paths relative to this folder)
+
+ref.py      float reference of Tiny-2.1 (numpy), reads the original TINY.BIN
+isim.py     bit-exact Python model of the integer engine (source/ENGINE.C)
+convert.py  TINY.BIN -> TINY88.BIN + TINY0.BIN
+              python3 convert.py TINY.BIN TINY88.BIN TINY0.BIN
+mktrie.py   picks common question beginnings from Tiny-2.1's training/gen2.py
+              python3 mktrie.py <Tiny-2.1>/training 800000 30000 PFXNODES.BIN extra.txt
+native build of the engine (also builds the memory file):
+              cc -x c -O2 -o tiny88 ../source/TINY88.C ../source/ENGINE.C
+              ./tiny88 -mkpfx PFXNODES.BIN TINYPFX.BIN
+              ./tiny88 -t < qs.txt          (answers at creativity 0)
+build.sh    DOS build with Open Watcom v2
+            WATCOM=/path/to/open-watcom ./build.sh output-directory
+render.py   renders SCREENS.DMP (from TINY88 /DEMO /DUMP3) to PNG for checking
